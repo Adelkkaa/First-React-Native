@@ -3,6 +3,8 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { NativeWindStyleSheet } from "nativewind";
+import 'react-native-reanimated'
+
 
 NativeWindStyleSheet.setOutput({
   default: "native",

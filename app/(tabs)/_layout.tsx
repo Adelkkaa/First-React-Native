@@ -45,7 +45,7 @@ const TabsLayout = () => {
             height: 84,
           },
         }}
-        detachInactiveScreens={false}
+        // detachInactiveScreens={false}
       >
         <Tabs.Screen
           name="home"
