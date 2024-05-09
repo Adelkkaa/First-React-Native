@@ -11,12 +11,15 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "package": "com.adelkkaa.aora"
     },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.adelkkaa.aora"
+
     },
     "web": {
       "bundler": "metro",

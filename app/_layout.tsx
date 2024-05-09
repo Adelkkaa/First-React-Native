@@ -4,6 +4,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { NativeWindStyleSheet } from "nativewind";
 import 'react-native-reanimated'
+import GlobalProvider from "@/context/GlobalContext";
 
 
 NativeWindStyleSheet.setOutput({
@@ -43,13 +44,13 @@ export default function RootLayout() {
   }
 
   return (
-    <>
+    <GlobalProvider>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="search/[query]" options={{ headerShown: false }} />
       </Stack>
-    </>
+    </GlobalProvider>
   );
 }

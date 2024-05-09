@@ -1,13 +1,19 @@
 import CustomButton from "@/components/CustomButton";
+import Loader from "@/components/Loader";
 import { images } from "@/constants";
-import {  router } from "expo-router";
+import { useGlobalContext } from "@/context/GlobalContext";
+import { Redirect, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
+  const { loading, isLogged } = useGlobalContext();
+
+  if (!loading && isLogged) return <Redirect href="/home" />;
   return (
     <SafeAreaView className="bg-primary h-full">
+      <Loader isLoading={loading} />
       <ScrollView contentContainerStyle={{ height: "100%" }}>
         <View className="w-full justify-center items-center min-h-[85vh] px-4">
           <Image
@@ -38,12 +44,12 @@ export default function App() {
           </Text>
           <CustomButton
             title="Continue with Email"
-            onPress={() => router.push('/sign-in')}
+            onPress={() => router.push("/sign-in")}
             containerStyles="w-full mt-7"
           />
         </View>
       </ScrollView>
-      <StatusBar backgroundColor="#161622" style='light' />
+      <StatusBar backgroundColor="#161622" style="light" />
     </SafeAreaView>
   );
 }

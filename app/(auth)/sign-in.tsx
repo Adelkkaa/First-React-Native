@@ -1,16 +1,45 @@
-import { View, Text, SafeAreaView, ScrollView, Image } from "react-native";
+import { View, Text, SafeAreaView, ScrollView, Image, Alert } from "react-native";
 import React, { useState } from "react";
 import { images } from "@/constants";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+import { getCurrentUser, signIn, signOut } from "@/lib/appWrite";
+import { useGlobalContext } from "@/context/GlobalContext";
 
 const SignIn = () => {
+  const { setUser, setIsLogged } = useGlobalContext();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
   const [isSubmitting, setSubmitting] = useState(false);
+
+  const submit = async () => {
+    if (form.email === "" || form.password === "") {
+      Alert.alert("Error", "Please fill in all fields");
+      return
+    }
+
+    setSubmitting(true);
+
+    try {
+      await signOut();
+      await signIn(form.email, form.password);
+      const result = await getCurrentUser();
+
+      setUser(result);
+      setIsLogged(true);
+
+      Alert.alert("Success", "User signed in successfully");
+      router.replace("/home");
+    } catch (error) {
+      Alert.alert("Error", (error as Error).message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -41,7 +70,7 @@ const SignIn = () => {
 
           <CustomButton
             title="Sign-In"
-            onPress={() => setSubmitting(true)}
+            onPress={submit}
             containerStyles="mt-7"
             isLoading={isSubmitting}
           />
